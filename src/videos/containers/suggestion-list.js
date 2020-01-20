@@ -3,10 +3,20 @@ import {FlatList, Text} from 'react-native';
 import Layout from '../components/suggestions-list-layout';
 import Empty from '../components/empty';
 import Separator from '../components/vertical-separator';
+import Suggestion from '../components/suggestions';
 
 class SuggestionList extends Component {
-  renderEmtpy = () => <Empty text="No hay sugerencias :(" />;
-  itemSeparator = () => <Separator />; // color='red' 
+  	renderEmtpy = () => <Empty text="No hay sugerencias :(" />;
+  
+ 	itemSeparator = () => <Separator />; // color='red' 
+
+	renderItem = ( {item} ) => { 
+		return (
+			<Suggestion {...item} />
+		)
+	}  	
+
+	keyExtractor = item => item.id.toString();
 
   render() {
     const list = [
@@ -18,16 +28,23 @@ class SuggestionList extends Component {
         key: '2',
         title: 'Pokemon',
       },
-    ];
+	];
+	
+	// ListEmptyComponent: se activa si el arrelo que le pase esta vacio
+	// ItemSeparatorComponent: es una funcion qeu pone algo entre cada item
+	// renderItem: es una funcion que devuelve cada item, es como un foreach
 
     return (
       <Layout title="Recomendado para ti">
         <FlatList
-          data={list}
-          // ListEmptyComponent = { () => <Text>No hay elementos en la lista</Text> }
-          ListEmptyComponent={this.renderEmtpy}
-          ItemSeparatorComponent={this.itemSeparator}
-          renderItem={({item}) => <Text> {item.title} </Text>}
+			keyExtractor={this.keyExtractor}
+			// data={list}
+			data={ this.props.list }
+          	// ListEmptyComponent = { () => <Text>No hay elementos en la lista</Text> }
+          	ListEmptyComponent={this.renderEmtpy}
+          	ItemSeparatorComponent={this.itemSeparator}
+			//renderItem={({item}) => <Text> {item.title} </Text>}
+			renderItem={ this.renderItem }
         />
       </Layout>
     );

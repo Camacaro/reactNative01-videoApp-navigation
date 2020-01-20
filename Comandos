@@ -24,6 +24,9 @@ system limit for number of file watchers reached watch react native
 $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 
+Degub
+Sobre el emulador lanzar Ctrl+M y darle a la opcion debug, se abre la pestaña y ver console log
+
 
 
 

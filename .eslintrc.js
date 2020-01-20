@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
   extends: '@react-native-community',
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
 };
