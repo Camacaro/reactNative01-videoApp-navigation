@@ -7,7 +7,7 @@ function SuggestionListLayout(props) {
     <View style={style.container}>
       <Text style={style.title}> {props.title} </Text>
       {props.children}
-    </View>
+    </View> 
   );
 }
 

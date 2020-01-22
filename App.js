@@ -15,6 +15,7 @@ import SuggestionList from './src/videos/containers/suggestion-list';
 import API from './utils/api';
 import CategoryList from './src/videos/containers/category-list';
 import Video from 'react-native-video';
+import Player from './src/player/containers/player';
 
 export default class App extends Component<Props> {
 
@@ -45,12 +46,12 @@ export default class App extends Component<Props> {
 					</Header> */}
 			<Header />
 			
-			<View style={{
+			{/* <View style={{
 				flex: 1,
 				height: 100,
 			}}>
 				<Video 
-					source={{ uri: 'https://www.youtube.com/watch?v=NtDG-Cnj-pw' }} 
+					source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }} 
 					style={{
 						position: 'absolute',
 						left: 0,
@@ -58,9 +59,11 @@ export default class App extends Component<Props> {
 						bottom: 0,
 						top: 0
 					}}
+					
 					resizeMode='contain'
 				/>
-			</View>
+			</View> */}
+			<Player />
 
 			<Text>buscador</Text>
 
