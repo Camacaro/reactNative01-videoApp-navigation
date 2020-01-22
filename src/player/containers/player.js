@@ -4,12 +4,19 @@ import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
 import Layout from '../components/layout';
 import PlayPause from '../components/play-pause';
 import ControlLayout from '../components/control-layout';
+import FullScreen from '../components/full-screen';
+import ProgressBar from '../components/progress-barr';
+import TimeLeft from '../components/time-life';
 
 class Player extends Component {
     
     state = {
         loading: true,
-        paused: false
+        paused: false,
+        fullScreen: false,
+        duration: 0.00,
+        currentTime: 0.00,
+        progress: 0.0
     }
 
     onBuffer = ( {isBuffering} ) => {
@@ -18,15 +25,77 @@ class Player extends Component {
         })
     }
 
-    onLoad = () => {
-        this.setState({
-            loading: false
-        })
-    }
+    // onLoad = () => {
+    //     this.setState({
+    //         loading: false
+    //     })
+    // }
 
     playPause = () => {
         this.setState({
             paused: !this.state.paused
+        });
+    }
+
+    // hacemos una referencia al componente Video, ya con esto puedo usar player en toda la clase
+    videoRef = (ref) => {
+        this.player = ref;
+    }
+
+    // En caso de que estemos en fullScreen
+    fullScreen = () => {
+        this.setState({
+            fullScreen: !this.state.fullScreen
+        });
+    }
+
+    // Activamos fullScreen
+    onFullScreen = () => {
+        
+        this.fullScreen();
+        
+        if (!this.state.fullScreen) {
+            this.player.presentFullscreenPlayer();
+        } else {
+            this.player.dismissFullscreenPlayer();
+        }
+    }
+
+    // Una vez cargado el video obtenemos y convertimos la duración a un formato legible
+    onLoad = (payload) => {
+        
+        let duration = payload.duration / 60;
+        
+        let minutes = Math.floor(duration);
+        
+        let seconds = duration % 1;
+        
+        seconds = (seconds * 60) / 1000;
+        
+        let time = (minutes + seconds * 10).toFixed(2);
+        
+        this.setState({
+            duration: time,
+            loading: false
+        });
+    }
+    
+    // Una vez cargado el video obtenemos el tiempo transcurrido y lo convertimos a formato legible
+    onProgress = (payload) => {
+        
+        let currentTime = payload.currentTime / 60;
+        
+        let minutes = Math.floor(currentTime);
+        
+        let seconds = currentTime % 1;
+        
+        seconds = (seconds * 60) / 1000;
+        
+        let time = (minutes + seconds * 10).toFixed(2);
+        
+        this.setState({
+            currentTime: time,
+            progress: (payload.currentTime / payload.seekableDuration)
         });
     }
     
@@ -44,6 +113,9 @@ class Player extends Component {
                         onBuffer = { this.onBuffer }
                         onLoad = { this.onLoad }
                         paused={ this.state.paused }
+
+                        ref={this.videoRef} 
+                        onProgress={this.onProgress}
                     />
                 }
 
@@ -56,9 +128,15 @@ class Player extends Component {
                 controls = {
                     <ControlLayout>
                         <PlayPause onPress= { this.playPause } paused = {this.state.paused} />
-                        <Text> Progress bar | </Text>
-                        <Text> time left | </Text>
-                        <Text> fullscreen | </Text>
+
+                        <ProgressBar  progress={this.state.progress} />
+                        
+                        <TimeLeft   duration={this.state.duration}
+                            currentTime={this.state.currentTime}
+                        />
+                        
+                        <FullScreen onPress={this.onFullScreen}  />
+
                     </ControlLayout>
                 }
             />
