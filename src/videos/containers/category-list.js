@@ -4,6 +4,12 @@ import Empty from '../components/empty';
 import Separator from '../../sections/components/horizontal-separator';
 import Layout from '../components/category-list-layout'
 import Category from '../components/category';
+import { connect } from 'react-redux';
+
+
+// function mapStateToProps(state) {
+//     debugger;
+// }
 
 class Categorylist extends Component {
     
@@ -40,4 +46,5 @@ class Categorylist extends Component {
     }
 }
 
+//  connect( mapStateToProps )(Categorylist)
 export default Categorylist;

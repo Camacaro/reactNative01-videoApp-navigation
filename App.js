@@ -16,6 +16,8 @@ import API from './utils/api';
 import CategoryList from './src/videos/containers/category-list';
 import Video from 'react-native-video';
 import Player from './src/player/containers/player';
+import store from './store';
+import { Provider } from 'react-redux';
 
 export default class App extends Component<Props> {
 
@@ -39,38 +41,43 @@ export default class App extends Component<Props> {
 
   	render() {
     return (
-      	// home es un smartComponent
-		<Home>
-			{/* <Header>
-						<Text> ola ke haces </Text>
-					</Header> */}
-			<Header />
-			
-			{/* <View style={{
-				flex: 1,
-				height: 100,
-			}}>
-				<Video 
-					source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }} 
-					style={{
-						position: 'absolute',
-						left: 0,
-						right:0,
-						bottom: 0,
-						top: 0
-					}}
-					
-					resizeMode='contain'
-				/>
-			</View> */}
-			<Player />
+        <Provider
+            store = { store }
+        >
 
-			<Text>buscador</Text>
+            {/* // home es un smartComponent */}
+            <Home>
+                {/* <Header>
+                            <Text> ola ke haces </Text>
+                        </Header> */}
+                <Header />
+                
+                {/* <View style={{
+                    flex: 1,
+                    height: 100,
+                }}>
+                    <Video 
+                        source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }} 
+                        style={{
+                            position: 'absolute',
+                            left: 0,
+                            right:0,
+                            bottom: 0,
+                            top: 0
+                        }}
+                        
+                        resizeMode='contain'
+                    />
+                </View> */}
+                <Player />
 
-			<CategoryList list={this.state.categoryList} />
+                <Text>buscador</Text>
 
-			<SuggestionList list={this.state.suggestionList} />
-		</Home>
+                <CategoryList list={this.state.categoryList} />
+
+                <SuggestionList list={this.state.suggestionList} />
+            </Home>
+        </Provider>
     );
   }
 }

@@ -2,3 +2,6 @@ Listas
 flatList - lsitas sencillas
 
 sectionList - lsitas complejas
+
+install redux
+npm install redux react-redux --save
