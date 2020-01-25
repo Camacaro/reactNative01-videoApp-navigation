@@ -36,6 +36,8 @@ target 'platziVideoApp' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'platziVideoAppTests' do
     inherit! :search_paths
     # Pods for testing
