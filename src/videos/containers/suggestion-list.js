@@ -11,9 +11,18 @@ class SuggestionList extends Component {
   
  	itemSeparator = () => <Separator />; // color='red' 
 
+    viewMovie = ( item ) => {
+        this.props.dispatch({
+            type: 'SET_SELECTED_MOVIE',
+            payload: {
+                movie: item
+            }
+        });
+    }
+
 	renderItem = ( {item} ) => { 
 		return (
-			<Suggestion {...item} />
+			<Suggestion {...item} onPress = { () => { this.viewMovie( item ) } } />
 		)
 	}  	
 

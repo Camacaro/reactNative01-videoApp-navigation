@@ -13,9 +13,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 //     categoryList: []
 // } );
 
+// el blacklist es para decirle a persiste que no quiero que persistas o guardes
+// este valor - key ( es la key de mi state en el reducer) , que no lo mantenga en el store
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
+    blacklist: ['selectedMovie']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
