@@ -46,5 +46,16 @@ class Categorylist extends Component {
     }
 }
 
+// const mapStateToProps = (state) => {
+//     debugger;
+
+//     return{
+//     };
+// };
+
+const mapStateToProps = (state) => ({
+    list: state.categoryList
+});
+
 //  connect( mapStateToProps )(Categorylist)
-export default Categorylist;
+export default connect( mapStateToProps )(Categorylist); // Categorylist;
